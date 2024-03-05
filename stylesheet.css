@@ -1,16 +1,18 @@
-/* Apply style to h1 tag */
-h1 {
-    color: #333;
-}
 
-/* Apply style to .header class */
+
+
 .header {
     background-color: #f2f2f2;
     padding: 20px;
     text-align: center;
 }
 
-/* Apply style to #ingredients and #instructions sections */
+
+h1 {
+    color: #333;
+}
+
+/* bottom parts */
 .section {
     background-color: #fff;
     padding: 20px;
@@ -18,17 +20,15 @@ h1 {
     border: 1px solid #ccc;
 }
 
-/* Change color of <a> tag on hover */
+
 a:hover {
     color: #ff5733;
 }
 
-/* Change box model properties */
 ul, ol {
     padding-left: 20px;
 }
 
-/* Apply style to .footer class */
 .footer {
     background-color: #333;
     color: #fff;
