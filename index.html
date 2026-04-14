@@ -2,61 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Delicious meatloaf recipe website">
-    <title>Meatloaf Recipe</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSA Cert Lookup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #020617; /* slate-950 */
+        }
+        .display-glow {
+            color: #34d399; /* emerald-400 */
+            text-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+        }
+        .display-bar {
+            box-shadow: inset 0 0 0 1px rgba(52, 211, 153, 0.2);
+        }
+        .btn-press:active {
+            transform: scale(0.95);
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen flex items-center justify-center">
 
-<div class="header">
-    <h1>Delicious Meatloaf Recipe</h1>
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#ingredients">Ingredients</a></li>
-            <li><a href="#instructions">Instructions</a></li>
-        </ul>
-    </nav>
-</div>
+    <div class="w-full max-w-[320px] mx-auto px-4">
+        <!-- Title -->
+        <h1 class="text-center text-slate-400 text-sm font-medium tracking-widest uppercase mb-6">PSA Cert Lookup</h1>
 
-<div id="ingredients" class="section">
-    <h2>Ingredients</h2>
-    <ul>
-        <li>1/2 lb ground beef</li>
-        <li>1/2 lb ground pork</li>
-        <li>1/2 cup breadcrumbs</li>
-        <li>1/4 cup chopped onion</li>
-        <li>1/4 cup chopped green bell pepper</li>
-        <li>1/4 cup milk</li>
-        <li>1 egg</li>
-        <li>1 tsp salt</li>
-        <li>1/4 tsp black pepper</li>
-        <li>1/4 cup ketchup</li>
-    </ul>
-</div>
+        <!-- Display Bar -->
+        <div class="display-bar bg-slate-900 rounded-2xl px-4 py-3 mb-6 min-h-[52px] flex items-center justify-end">
+            <span id="display" class="display-glow text-2xl font-mono tracking-wider"></span>
+            <span id="cursor" class="display-glow text-2xl font-mono animate-pulse">|</span>
+        </div>
 
-<div id="instructions" class="section">
-    <h2>Instructions</h2>
-    <ol>
-        <li>Preheat oven to 350°F (175°C).</li>
-        <li>In a large bowl, combine ground beef, ground pork, breadcrumbs, onion, green pepper, milk, egg, salt, and pepper.</li>
-        <li>Press mixture into a loaf pan.</li>
-        <li>Invert pan contents onto a sheet trap.</li>
-        <li>Spread ketchup over the top.</li>
-        <li>Bake for 1 hour.</li>
-        <li>Let it rest for 10 minutes before serving.</li>
-    </ol>
-</div>
+        <!-- Dialer Pad -->
+        <div class="grid grid-cols-3 gap-3">
+            <!-- Row 1 -->
+            <button onclick="appendDigit('1')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">1</button>
+            <button onclick="appendDigit('2')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">2</button>
+            <button onclick="appendDigit('3')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">3</button>
 
+            <!-- Row 2 -->
+            <button onclick="appendDigit('4')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">4</button>
+            <button onclick="appendDigit('5')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">5</button>
+            <button onclick="appendDigit('6')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">6</button>
 
-<div class="image-section">
-    <img src="https://www.budgetbytes.com/wp-content/uploads/2021/09/Classic-Meatloaf-V1-1152x1536.jpg" alt="Delicious Meatloaf">
-</div>
+            <!-- Row 3 -->
+            <button onclick="appendDigit('7')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">7</button>
+            <button onclick="appendDigit('8')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">8</button>
+            <button onclick="appendDigit('9')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">9</button>
 
+            <!-- Row 4 (Bottom) -->
+            <button onclick="goCertLookup()" class="btn-press bg-emerald-600 hover:bg-emerald-500 text-white text-xl font-bold rounded-2xl py-4 transition-colors">GO</button>
+            <button onclick="appendDigit('0')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">0</button>
+            <button onclick="backspace()" class="btn-press bg-rose-900 hover:bg-rose-800 text-white text-xl font-semibold rounded-2xl py-4 transition-colors">&#x232B;</button>
+        </div>
+    </div>
 
-<div class="footer">
-    <p>© 2024 Ethan's Meatloaf Recipe</p>
-</div>
+    <script>
+        const display = document.getElementById('display');
+        let certNumber = '';
+
+        function appendDigit(digit) {
+            certNumber += digit;
+            display.textContent = certNumber;
+        }
+
+        function backspace() {
+            certNumber = certNumber.slice(0, -1);
+            display.textContent = certNumber;
+        }
+
+        function goCertLookup() {
+            if (!certNumber) return;
+            window.open('https://www.psacard.com/cert/' + encodeURIComponent(certNumber), '_blank');
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', function(e) {
+            if (e.key >= '0' && e.key <= '9') {
+                appendDigit(e.key);
+            } else if (e.key === 'Backspace') {
+                backspace();
+            } else if (e.key === 'Enter') {
+                goCertLookup();
+            }
+        });
+    </script>
 
 </body>
 </html>
