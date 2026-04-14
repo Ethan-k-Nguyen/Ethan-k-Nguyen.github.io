@@ -78,7 +78,6 @@
             if (!certNumber) return;
             const num = certNumber;
             const url = 'https://www.psacard.com/cert/' + encodeURIComponent(num);
-            window.open(url, '_blank');
             addHistoryCard(num, url);
             certNumber = '';
             display.textContent = '';
