@@ -51,9 +51,12 @@
             <button onclick="appendDigit('9')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">9</button>
 
             <!-- Row 4 (Bottom) -->
-            <button onclick="goCertLookup()" class="btn-press bg-emerald-600 hover:bg-emerald-500 text-white text-xl font-bold rounded-2xl py-4 transition-colors">GO</button>
+            <button onclick="goCertLookup(false)" class="btn-press bg-slate-700 hover:bg-slate-600 text-white text-xl font-bold rounded-2xl py-4 transition-colors">GO</button>
             <button onclick="appendDigit('0')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">0</button>
             <button onclick="backspace()" class="btn-press bg-rose-900 hover:bg-rose-800 text-white text-xl font-semibold rounded-2xl py-4 transition-colors">&#x232B;</button>
+            
+            <!-- Row 5 (Enter) -->
+            <button onclick="goCertLookup(true)" class="col-span-3 btn-press bg-emerald-600 hover:bg-emerald-500 text-white text-xl font-bold rounded-2xl py-4 transition-colors tracking-widest uppercase mt-1">ENTER</button>
         </div>
 
         <!-- History Section -->
@@ -74,11 +77,16 @@
             display.textContent = certNumber;
         }
 
-        function goCertLookup() {
+        function goCertLookup(shouldOpen = false) {
             if (!certNumber) return;
             const num = certNumber;
             const url = 'https://www.psacard.com/cert/' + encodeURIComponent(num);
             addHistoryCard(num, url);
+            
+            if (shouldOpen) {
+                window.open(url, '_blank');
+            }
+
             certNumber = '';
             display.textContent = '';
         }
@@ -103,7 +111,7 @@
             } else if (e.key === 'Backspace') {
                 backspace();
             } else if (e.key === 'Enter') {
-                goCertLookup();
+                goCertLookup(true);
             }
         });
     </script>
