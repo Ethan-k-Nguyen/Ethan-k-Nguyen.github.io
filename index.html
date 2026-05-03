@@ -21,51 +21,101 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center pt-12 pb-8">
+<body class="min-h-screen flex flex-col items-center pt-8 pb-8">
 
     <div class="w-full max-w-[320px] mx-auto px-4">
-        <!-- Title -->
-        <h1 class="text-center text-slate-400 text-sm font-medium tracking-widest uppercase mb-6">PSA Cert Lookup</h1>
+        <!-- Tabs -->
+        <nav class="flex border-b border-slate-800 mb-8">
+            <button id="tab-psa" onclick="switchTab('psa')" class="flex-1 py-3 text-center text-xs font-bold tracking-widest uppercase transition-colors text-emerald-400 border-b-2 border-emerald-400">
+                PSA Cert
+            </button>
+            <button id="tab-ebay" onclick="switchTab('ebay')" class="flex-1 py-3 text-center text-xs font-bold tracking-widest uppercase transition-colors text-slate-500 hover:text-slate-300">
+                eBay Sold
+            </button>
+        </nav>
 
-        <!-- Display Bar -->
-        <div class="display-bar bg-slate-900 rounded-2xl px-4 py-3 mb-6 min-h-[52px] flex items-center justify-end">
-            <span id="display" class="display-glow text-2xl font-mono tracking-wider"></span>
-            <span id="cursor" class="display-glow text-2xl font-mono animate-pulse">|</span>
-        </div>
+        <!-- PSA Section -->
+        <section id="psa-section">
+            <!-- Title -->
+            <h1 class="text-center text-slate-400 text-sm font-medium tracking-widest uppercase mb-6">PSA Cert Lookup</h1>
 
-        <!-- Dialer Pad -->
-        <div class="grid grid-cols-3 gap-3">
-            <!-- Row 1 -->
-            <button onclick="appendDigit('1')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">1</button>
-            <button onclick="appendDigit('2')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">2</button>
-            <button onclick="appendDigit('3')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">3</button>
+            <!-- Display Bar -->
+            <div class="display-bar bg-slate-900 rounded-2xl px-4 py-3 mb-6 min-h-[52px] flex items-center justify-end">
+                <span id="display" class="display-glow text-2xl font-mono tracking-wider"></span>
+                <span id="cursor" class="display-glow text-2xl font-mono animate-pulse">|</span>
+            </div>
 
-            <!-- Row 2 -->
-            <button onclick="appendDigit('4')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">4</button>
-            <button onclick="appendDigit('5')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">5</button>
-            <button onclick="appendDigit('6')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">6</button>
+            <!-- Dialer Pad -->
+            <div class="grid grid-cols-3 gap-3">
+                <!-- Row 1 -->
+                <button onclick="appendDigit('1')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">1</button>
+                <button onclick="appendDigit('2')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">2</button>
+                <button onclick="appendDigit('3')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">3</button>
 
-            <!-- Row 3 -->
-            <button onclick="appendDigit('7')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">7</button>
-            <button onclick="appendDigit('8')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">8</button>
-            <button onclick="appendDigit('9')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">9</button>
+                <!-- Row 2 -->
+                <button onclick="appendDigit('4')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">4</button>
+                <button onclick="appendDigit('5')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">5</button>
+                <button onclick="appendDigit('6')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">6</button>
 
-            <!-- Row 4 (Bottom) -->
-            <button onclick="goCertLookup(false)" class="btn-press bg-slate-700 hover:bg-slate-600 text-white text-xl font-bold rounded-2xl py-4 transition-colors">GO</button>
-            <button onclick="appendDigit('0')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">0</button>
-            <button onclick="backspace()" class="btn-press bg-rose-900 hover:bg-rose-800 text-white text-xl font-semibold rounded-2xl py-4 transition-colors">&#x232B;</button>
+                <!-- Row 3 -->
+                <button onclick="appendDigit('7')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">7</button>
+                <button onclick="appendDigit('8')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">8</button>
+                <button onclick="appendDigit('9')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">9</button>
+
+                <!-- Row 4 (Bottom) -->
+                <button onclick="goCertLookup(true)" class="btn-press bg-slate-700 hover:bg-slate-600 text-white text-xl font-bold rounded-2xl py-4 transition-colors">GO</button>
+                <button onclick="appendDigit('0')" class="btn-press bg-slate-800 hover:bg-slate-700 text-slate-200 text-xl font-semibold rounded-2xl py-4 transition-colors">0</button>
+                <button onclick="backspace()" class="btn-press bg-rose-900 hover:bg-rose-800 text-white text-xl font-semibold rounded-2xl py-4 transition-colors">&#x232B;</button>
+                
+                <!-- Row 5 (Enter) -->
+                <button onclick="goCertLookup(true)" class="col-span-3 btn-press bg-emerald-600 hover:bg-emerald-500 text-white text-xl font-bold rounded-2xl py-4 transition-colors tracking-widest uppercase mt-1">ENTER</button>
+            </div>
+
+            <!-- History Section PSA -->
+            <div id="history-psa" class="mt-6 flex flex-col gap-2"></div>
+        </section>
+
+        <!-- eBay Section -->
+        <section id="ebay-section" class="hidden">
+            <h1 class="text-center text-slate-400 text-sm font-medium tracking-widest uppercase mb-6">eBay Last Sold</h1>
             
-            <!-- Row 5 (Enter) -->
-            <button onclick="goCertLookup(true)" class="col-span-3 btn-press bg-emerald-600 hover:bg-emerald-500 text-white text-xl font-bold rounded-2xl py-4 transition-colors tracking-widest uppercase mt-1">ENTER</button>
-        </div>
+            <div class="mb-6">
+                <input type="text" id="ebay-input" placeholder="Search eBay Sold..." 
+                    class="w-full bg-slate-900 border border-slate-800 rounded-2xl px-5 py-4 text-emerald-400 text-lg font-mono focus:outline-none focus:border-emerald-500 transition-colors placeholder:text-slate-700">
+                <button onclick="goEbaySearch()" class="w-full btn-press bg-emerald-600 hover:bg-emerald-500 text-white text-xl font-bold rounded-2xl py-4 transition-colors tracking-widest uppercase mt-4">SEARCH</button>
+            </div>
 
-        <!-- History Section -->
-        <div id="history" class="mt-6 flex flex-col gap-2"></div>
+            <!-- History Section eBay -->
+            <div id="history-ebay" class="mt-6 flex flex-col gap-2"></div>
+        </section>
     </div>
 
     <script>
         const display = document.getElementById('display');
+        const ebayInput = document.getElementById('ebay-input');
         let certNumber = '';
+        let activeTab = 'psa';
+
+        function switchTab(tab) {
+            activeTab = tab;
+            const psaSection = document.getElementById('psa-section');
+            const ebaySection = document.getElementById('ebay-section');
+            const psaBtn = document.getElementById('tab-psa');
+            const ebayBtn = document.getElementById('tab-ebay');
+
+            if (tab === 'psa') {
+                psaSection.classList.remove('hidden');
+                ebaySection.classList.add('hidden');
+                psaBtn.className = 'flex-1 py-3 text-center text-xs font-bold tracking-widest uppercase transition-colors text-emerald-400 border-b-2 border-emerald-400';
+                ebayBtn.className = 'flex-1 py-3 text-center text-xs font-bold tracking-widest uppercase transition-colors text-slate-500 hover:text-slate-300';
+            } else {
+                psaSection.classList.add('hidden');
+                ebaySection.classList.remove('hidden');
+                psaBtn.className = 'flex-1 py-3 text-center text-xs font-bold tracking-widest uppercase transition-colors text-slate-500 hover:text-slate-300';
+                ebayBtn.className = 'flex-1 py-3 text-center text-xs font-bold tracking-widest uppercase transition-colors text-emerald-400 border-b-2 border-emerald-400';
+                ebayInput.focus();
+            }
+        }
 
         function appendDigit(digit) {
             certNumber += digit;
@@ -81,7 +131,7 @@
             if (!certNumber) return;
             const num = certNumber;
             const url = 'https://www.psacard.com/cert/' + encodeURIComponent(num);
-            addHistoryCard(num, url);
+            addHistoryCard('history-psa', `Cert #${num}`, url);
             
             if (shouldOpen) {
                 window.open(url, '_blank');
@@ -91,27 +141,43 @@
             display.textContent = '';
         }
 
-        function addHistoryCard(num, url) {
-            const history = document.getElementById('history');
+        function goEbaySearch() {
+            const query = ebayInput.value.trim();
+            if (!query) return;
+
+            const url = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(query)}&_sacat=0&_from=R40&rt=nc&LH_Sold=1`;
+            addHistoryCard('history-ebay', query, url);
+            window.open(url, '_blank');
+            ebayInput.value = '';
+        }
+
+        function addHistoryCard(containerId, text, url) {
+            const history = document.getElementById(containerId);
             const card = document.createElement('div');
             card.className = 'relative bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 flex items-center justify-between group';
             card.innerHTML = `
-                <a href="${url}" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-mono text-sm tracking-wide transition-colors">
-                    Cert #${num}
+                <a href="${url}" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-mono text-sm tracking-wide transition-colors truncate pr-2">
+                    ${text}
                 </a>
-                <button onclick="this.parentElement.remove()" class="text-slate-500 hover:text-rose-400 text-xs ml-3 transition-colors">&times;</button>
+                <button onclick="this.parentElement.remove()" class="text-slate-500 hover:text-rose-400 text-xs ml-auto transition-colors">&times;</button>
             `;
             history.prepend(card);
         }
 
         // Keyboard support
         document.addEventListener('keydown', function(e) {
-            if (e.key >= '0' && e.key <= '9') {
-                appendDigit(e.key);
-            } else if (e.key === 'Backspace') {
-                backspace();
-            } else if (e.key === 'Enter') {
-                goCertLookup(true);
+            if (activeTab === 'psa') {
+                if (e.key >= '0' && e.key <= '9') {
+                    appendDigit(e.key);
+                } else if (e.key === 'Backspace') {
+                    backspace();
+                } else if (e.key === 'Enter') {
+                    goCertLookup(true);
+                }
+            } else if (activeTab === 'ebay') {
+                if (e.key === 'Enter') {
+                    goEbaySearch();
+                }
             }
         });
     </script>
